@@ -5,12 +5,11 @@
 import csv
 import sys
 import urllib
-import unicodecsv as csv
 
 i = 0
 r_file = open('images.csv', 'rt')
 w_file = open('img_label.csv', 'wt')
-writer = csv.writer(w_file, encoding='utf-8')
+writer = csv.writer(w_file)
 
 images = csv.reader(r_file)
 img_label = csv.writer(w_file)
