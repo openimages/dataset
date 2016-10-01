@@ -12,6 +12,12 @@ The images are listed as having a [CC BY 2.0](https://creativecommons.org/licens
 * [Machine image-level annotations (train and validation sets)](https://storage.googleapis.com/openimages/2016_08/machine_ann_2016_08.tar.gz) (330 MB)
 * [Human image-level annotations (validation set)](https://storage.googleapis.com/openimages/2016_08/human_ann_2016_08.tar.gz) (7 MB)
 
+## Download images from csv file
+* Extract **images_2016_08_v2.tar.gz file**
+* cd into train/validation folders 
+* wget [download_images.py](https://github.com/Naveenal/dataset/raw/master/images_download.py) file
+* python **download_images.py**
+
 ## Data organization
 
 Each image has a unique 64-bit ID assigned. In the CSV files they appear as zero-padded hex integers, such as 000060e3121c7305. The dataset is split into a training set (9011219 images) and a validation set (167057 images). Each image has zero, one or more image-level labels assigned. Both sets have machine-populated annotations, while the validation set also has human annotations. The raters have been asked to validate the machine annotations, which allowed to practically eliminate false positive from the validation set (but not false negatives).
