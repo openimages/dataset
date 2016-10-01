@@ -8,11 +8,12 @@ import urllib
 
 i = 0
 r_file = open('images.csv', 'rt')
-w_file = open('img_label.csv', 'wt')
+w_file = open('images_id.csv', 'wt')
 writer = csv.writer(w_file)
 
 images = csv.reader(r_file)
-img_label = csv.writer(w_file)
+images_id = csv.writer(w_file)
+images_id.writerow(["Image ID", "File Name"])
 
 try:    
     imgs = iter(images)
@@ -20,9 +21,8 @@ try:
     for img in imgs:
         i += 1
         urllib.urlretrieve (img[1], 'image_%d.jpg' % i)
-        img_id = ('image_%d.jpg .... Saved' % i)
-        print (img_id)
-        img_label.writerow(['image_%d.jpg' % i , img[6]])
+        print ('image_%d.jpg .... Saved' % i)
+        images_id.writerow([img[0], 'image_%d.jpg' % i])
 finally:
     r_file.close()
     w_file.close()
