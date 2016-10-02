@@ -8,7 +8,7 @@ The images are listed as having a [CC BY 2.0](https://creativecommons.org/licens
 
 ## Download the data
 
-* [Image URLs and metadata](https://storage.googleapis.com/openimages/2016_08/images_2016_08_v2.tar.gz) (654 MB) – **Updated** to [make image ids hexadimal](https://github.com/openimages/dataset/issues/1)
+* [Image URLs and metadata](https://storage.googleapis.com/openimages/2016_08/images_2016_08_v3.tar.gz) (656 MB) – **Added** Subset column to make it easier to [import into PostgresSQL](https://github.com/openimages/dataset/wiki/Importing-into-PostgreSQL))
 * [Machine image-level annotations (train and validation sets)](https://storage.googleapis.com/openimages/2016_08/machine_ann_2016_08.tar.gz) (330 MB)
 * [Human image-level annotations (validation set)](https://storage.googleapis.com/openimages/2016_08/human_ann_2016_08.tar.gz) (7 MB)
 
@@ -27,12 +27,12 @@ The data tarballs contain CSV files of two types:
 There's one such file for each subset inside train and validation subdirectories. It has image URLs, their OpenImages IDs, titles, authors and license information:
 
 ```
-ImageID,OriginalURL,OriginalLandingURL,License,AuthorProfileURL,Author,Title
+ImageID,Subset,OriginalURL,OriginalLandingURL,License,AuthorProfileURL,Author,Title
 ...
 
-000060e3121c7305,"https://c1.staticflickr.com/5/4129/5215831864_46f356962f_o.jpg",\
-"https://www.flickr.com/photos/brokentaco/5215831864",\
-"https://creativecommons.org/licenses/by/2.0/",\
+000060e3121c7305,train,https://c1.staticflickr.com/5/4129/5215831864_46f356962f_o.jpg,\
+https://www.flickr.com/photos/brokentaco/5215831864,\
+https://creativecommons.org/licenses/by/2.0/,\
 "https://www.flickr.com/people/brokentaco/","David","28 Nov 2010 Our new house."
 ```
 
