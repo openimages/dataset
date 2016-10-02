@@ -8,7 +8,7 @@ The images are listed as having a [CC BY 2.0](https://creativecommons.org/licens
 
 ## Download the data
 
-* [Image URLs and metadata](https://storage.googleapis.com/openimages/2016_08/images_2016_08_v3.tar.gz) (656 MB) – **Added** Subset column to make it easier to [import into PostgresSQL](https://github.com/openimages/dataset/wiki/Importing-into-PostgreSQL))
+* [Image URLs and metadata](https://storage.googleapis.com/openimages/2016_08/images_2016_08_v3.tar.gz) (656 MB) – **Added** a "Subset" column to make it easier to [import into PostgresSQL](https://github.com/openimages/dataset/wiki/Importing-into-PostgreSQL))
 * [Machine image-level annotations (train and validation sets)](https://storage.googleapis.com/openimages/2016_08/machine_ann_2016_08.tar.gz) (330 MB)
 * [Human image-level annotations (validation set)](https://storage.googleapis.com/openimages/2016_08/human_ann_2016_08.tar.gz) (7 MB)
 
