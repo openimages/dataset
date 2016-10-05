@@ -8,9 +8,9 @@ The images are listed as having a [CC BY 2.0](https://creativecommons.org/licens
 
 ## Download the data
 
-* [Image URLs and metadata](https://storage.googleapis.com/openimages/2016_08/images_2016_08_v3.tar.gz) (656 MB) – **Added** a "Subset" column to make it easier to [import the annotations into PostgreSQL](https://github.com/openimages/dataset/wiki/Importing-into-PostgreSQL))
-* [Machine image-level annotations (train and validation sets)](https://storage.googleapis.com/openimages/2016_08/machine_ann_2016_08.tar.gz) (330 MB)
-* [Human image-level annotations (validation set)](https://storage.googleapis.com/openimages/2016_08/human_ann_2016_08.tar.gz) (7 MB)
+* [Image URLs and metadata](https://storage.googleapis.com/openimages/2016_08/images_2016_08_v3.tar.gz) (656 MB) – **Added** a "Subset" column to make it easier to [import the annotations into PostgreSQL](https://github.com/openimages/dataset/wiki/Importing-into-PostgreSQL)
+* [Machine image-level annotations (train and validation sets)](https://storage.googleapis.com/openimages/2016_08/machine_ann_2016_08_v2.tar.gz) (450 MB) - **Updated:** now there's one row per label to make it easier to [import the annotations into PostgreSQL](https://github.com/openimages/dataset/wiki/Importing-into-PostgreSQL)
+* [Human image-level annotations (validation set)](https://storage.googleapis.com/openimages/2016_08/human_ann_2016_08_v2.tar.gz) (9 MB) - **Updated:** now there's one row per label to make it easier to [import the annotations into PostgreSQL](https://github.com/openimages/dataset/wiki/Importing-into-PostgreSQL).
 
 ## Data organization
 
@@ -43,10 +43,21 @@ The data is as it appears on the destination websites.
 The CSVs of this type attach labels to image IDs:
 
 ```
-ImageID,Confidence:Labels...
+ImageID,Source,Label,Confidence
 ...
-000060e3121c7305,0.9:/m/05wrt,0.9:/m/06ht1,0.7:/m/01l0mw,0.7:/m/03d2wd,0.7:/m/03nxtz,0.6:/m/020g49,\
-0.6:/m/023907r,0.6:/m/02rfdq,0.6:/m/038t8_,0.6:/m/03f6tq,0.6:/m/0l7_8,0.5:/m/01nblt,0.5:/m/01s105
+000060e3121c7305,machine,/m/06ht1,0.9
+000060e3121c7305,machine,/m/05wrt,0.9
+000060e3121c7305,machine,/m/01l0mw,0.8
+000060e3121c7305,machine,/m/03d2wd,0.7
+000060e3121c7305,machine,/m/03nxtz,0.7
+000060e3121c7305,machine,/m/023907r,0.7
+000060e3121c7305,machine,/m/020g49,0.7
+000060e3121c7305,machine,/m/0l7_8,0.6
+000060e3121c7305,machine,/m/02rfdq,0.6
+000060e3121c7305,machine,/m/038t8_,0.6
+000060e3121c7305,machine,/m/03f6tq,0.6
+000060e3121c7305,machine,/m/01s105,0.6
+000060e3121c7305,machine,/m/01nblt,0.5
 ...
 ```
 
