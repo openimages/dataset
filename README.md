@@ -10,7 +10,7 @@ The images are listed as having a [CC BY 2.0](https://creativecommons.org/licens
 
 ## Download the data
 
-* [Image URLs and metadata](https://storage.googleapis.com/openimages/2016_08/images_2016_08_v3.tar.gz) (656 MB)
+* [Image URLs and metadata](https://storage.googleapis.com/openimages/2016_08/images_2016_08_v4.tar.gz) (880 MB) -- *updated* (added OriginalSize and OriginalMD5 columns)
 * [Machine image-level annotations (train and validation sets)](https://storage.googleapis.com/openimages/2016_08/machine_ann_2016_08_v2.tar.gz) (450 MB)
 * [Human image-level annotations (validation set)](https://storage.googleapis.com/openimages/2016_08/human_ann_2016_08_v2.tar.gz) (9 MB)
 
@@ -31,16 +31,17 @@ The data tarballs contain CSV files of two types:
 There's one such file for each subset inside train and validation subdirectories. It has image URLs, their OpenImages IDs, titles, authors and license information:
 
 ```
-ImageID,Subset,OriginalURL,OriginalLandingURL,License,AuthorProfileURL,Author,Title
+ImageID,Subset,OriginalURL,OriginalLandingURL,License,AuthorProfileURL,Author,Title,OriginalSize,OriginalMD5
 ...
 
 000060e3121c7305,train,https://c1.staticflickr.com/5/4129/5215831864_46f356962f_o.jpg,\
 https://www.flickr.com/photos/brokentaco/5215831864,\
 https://creativecommons.org/licenses/by/2.0/,\
-"https://www.flickr.com/people/brokentaco/","David","28 Nov 2010 Our new house."
+"https://www.flickr.com/people/brokentaco/","David","28 Nov 2010 Our new house."\
+211079,0Sad+xMj2ttXM1U8meEJ0A==
 ```
 
-The data is as it appears on the destination websites.
+The data is as it appears on the destination websites. OriginalMD5 is base64-encoded binary MD5, as described [here](https://cloud.google.com/storage/transfer/create-url-list#md5).
 
 ### labels.csv
 
