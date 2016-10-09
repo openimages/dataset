@@ -11,8 +11,8 @@ The images are listed as having a [CC BY 2.0](https://creativecommons.org/licens
 ## Download the data
 
 * [Image URLs and metadata](https://storage.googleapis.com/openimages/2016_08/images_2016_08_v4.tar.gz) (880 MB) -- **updated**: added OriginalSize and OriginalMD5 columns.
-* [Machine image-level annotations (train and validation sets)](https://storage.googleapis.com/openimages/2016_08/machine_ann_2016_08_v2.tar.gz) (450 MB)
-* [Human image-level annotations (validation set)](https://storage.googleapis.com/openimages/2016_08/human_ann_2016_08_v2.tar.gz) (9 MB)
+* [Machine image-level annotations (train and validation sets)](https://storage.googleapis.com/openimages/2016_08/machine_ann_2016_08_v3.tar.gz) (450 MB)
+* [Human image-level annotations (validation set)](https://storage.googleapis.com/openimages/2016_08/human_ann_2016_08_v3.tar.gz) (9 MB)
 
 See also how to [import the annotations into PostgreSQL](https://github.com/openimages/dataset/wiki/Importing-into-PostgreSQL).
 
@@ -48,7 +48,7 @@ The data is as it appears on the destination websites. OriginalMD5 is base64-enc
 The CSVs of this type attach labels to image IDs:
 
 ```
-ImageID,Source,Label,Confidence
+ImageID,Source,LabelName,Confidence
 ...
 000060e3121c7305,machine,/m/06ht1,0.9
 000060e3121c7305,machine,/m/05wrt,0.9
