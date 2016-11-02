@@ -7,6 +7,7 @@ The annotations are licensed by Google Inc. under [CC BY 4.0](https://creativeco
 The images are listed as having a [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) license. **Note:** while we tried to identify images that are licensed under a Creative Commons Attribution license, we make no representations or warranties regarding the license status of each image and you should verify the license for each image yourself.
 
 ## Goodies
+- **New** [Pretrained Inception v3 model](https://github.com/openimages/dataset/wiki/Running-a-pretrained-classifier) is released.
 - **New** [OpenImages annotations on BigQuery](https://cloud.google.com/bigquery/public-data/openimages)
 
 - [Unofficial dataset viewer](http://openimages.oldjpg.com/) by [tzatter](https://github.com/tzatter).
