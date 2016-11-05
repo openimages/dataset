@@ -119,7 +119,7 @@ BibTeX
   title={OpenImages: A public dataset for large-scale multi-label and multi-class image classification.},
   author={Krasin, Ivan and Duerig, Tom and Alldrin, Neil and Veit, Andreas and Abu-El-Haija, Sami
     and Belongie, Serge and Cai, David and Feng, Zheyun and Ferrari, Vittorio and Gomes, Victor
-    and Gupta, Abhinav, and Narayanan, Dhyanesh and Sun, Chen and Chechik, Gal and Murphy, Kevin},
+    and Gupta, Abhinav and Narayanan, Dhyanesh and Sun, Chen and Chechik, Gal and Murphy, Kevin},
   journal={Dataset available from https://github.com/openimages},
   year={2016}
 }
