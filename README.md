@@ -107,3 +107,19 @@ While the machine annotations are somewhat noisy, in general, the labels with mo
 
 We have trained an Inception v3 model based on Open Images annotations alone, and the model is good enough to be used for fine-tuning applications as well as for other things, like [DeepDream](https://research.googleblog.com/2015/07/deepdream-code-example-for-visualizing.html) or [artistic style transfer](https://arxiv.org/abs/1508.06576) which require a well developed hierarchy of filters. We hope to improve the quality of the annotations in Open Image the coming months, and therefore the quality of models which can be trained.
 
+## Citations
+
+If you use the OpenImages dataset in your work, please cite it as:
+
+APA-style citation: "Krasin I., Duerig T., Alldrin N., Veit A., Abu-El-Haija S., Belongie S., Cai D., Feng Z., Ferrari V., Gomes V., Narayanan D., Sun C., Chechik G, Murphy K. OpenImages: A public dataset for large-scale multi-label and multi-class image classification, 2016. Available from https://github.com/openimages".
+
+BibTeX
+```
+@article{openimages,
+  title={OpenImages: A public dataset for large-scale multi-label and multi-class image classification.},
+  author={Krasin, Ivan and Duerig, Tom and Alldrin, Neil and Veit, Andreas and Abu-El-Haija, Sami and Belongie, Serge and Cai, David
+    and Feng, Zheyun and Ferrari, Vittorio and Gomes, Victor and Narayanan, Dhyanesh and Sun, Chen and Chechik, Gal and Murphy, Kevin},
+  journal={Dataset available from https://github.com/openimages},
+  year={2016}
+}
+```
