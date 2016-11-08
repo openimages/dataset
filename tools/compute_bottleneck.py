@@ -47,11 +47,13 @@ from tensorflow.python.training import supervisor
 slim = tf.contrib.slim
 FLAGS = None
 
-def PreprocessImage(image_path):
+def PreprocessImage(image_path, central_fraction=0.875):
   """Load and preprocess an image.
 
   Args:
     image_path: path to an image
+    central_fraction: do a central crop with the specified
+      fraction of image covered.
   Returns:
     An ops.Tensor that produces the preprocessed image.
   """
@@ -62,17 +64,12 @@ def PreprocessImage(image_path):
   # Decode Jpeg data and convert to float.
   img = tf.cast(tf.image.decode_jpeg(img_data, channels=3), tf.float32)
 
+  img = tf.image.central_crop(img, central_fraction=central_fraction)
   # Make into a 4D tensor by setting a 'batch size' of 1.
   img = tf.expand_dims(img, [0])
-
-  img = tf.image.crop_and_resize(
-      img,
-      # Whole image
-      tf.constant([0, 0, 1.0, 1.0], shape=[1, 4]),
-      # One box
-      tf.constant([0], shape=[1]),
-      # Target size is image_size x image_size
-      tf.constant([FLAGS.image_size, FLAGS.image_size], shape=[2]))
+  img = tf.image.resize_bilinear(img,
+                                 [FLAGS.image_size, FLAGS.image_size],
+                                 align_corners=False)
 
   # Center the image about 128.0 (which is done during training) and normalize.
   img = tf.mul(img, 1.0/127.5)
@@ -110,6 +107,7 @@ def main(args):
     first = False
     sys.stdout.write('{:.3f}'.format(val))
   sys.stdout.write('\n')
+
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser()
