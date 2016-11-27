@@ -57,33 +57,30 @@ from tensorflow.python.training import supervisor
 slim = tf.contrib.slim
 FLAGS = None
 
-def PreprocessImage(image_path, central_fraction=0.875):
+def PreprocessImage(image, central_fraction=0.875):
   """Load and preprocess an image.
 
   Args:
-    image_path: path to an image
+    image: a tf.string tensor with an JPEG-encoded image.
     central_fraction: do a central crop with the specified
       fraction of image covered.
   Returns:
     An ops.Tensor that produces the preprocessed image.
   """
-  if not os.path.exists(image_path):
-    tf.logging.fatal('Input image does not exist %s', image_path)
-  img_data = tf.gfile.FastGFile(image_path).read()
 
   # Decode Jpeg data and convert to float.
-  img = tf.cast(tf.image.decode_jpeg(img_data, channels=3), tf.float32)
+  image = tf.cast(tf.image.decode_jpeg(image, channels=3), tf.float32)
 
-  img = tf.image.central_crop(img, central_fraction=central_fraction)
+  image = tf.image.central_crop(image, central_fraction=central_fraction)
   # Make into a 4D tensor by setting a 'batch size' of 1.
-  img = tf.expand_dims(img, [0])
-  img = tf.image.resize_bilinear(img,
+  image = tf.expand_dims(image, [0])
+  image = tf.image.resize_bilinear(image,
                                  [FLAGS.image_size, FLAGS.image_size],
                                  align_corners=False)
 
   # Center the image about 128.0 (which is done during training) and normalize.
-  img = tf.mul(img, 1.0/127.5)
-  return tf.sub(img, 1.0)
+  image = tf.mul(image, 1.0/127.5)
+  return tf.sub(image, 1.0)
 
 
 def LoadLabelMaps(num_classes, labelmap_path, dict_path):
@@ -118,11 +115,12 @@ def main(args):
         FLAGS.checkpoint)
   g = tf.Graph()
   with g.as_default():
-    input_image = PreprocessImage(FLAGS.image_path[0])
+    input_image = tf.placeholder(tf.string)
+    processed_image = PreprocessImage(input_image)
 
     with slim.arg_scope(inception.inception_v3_arg_scope()):
       logits, end_points = inception.inception_v3(
-          input_image, num_classes=FLAGS.num_classes, is_training=False)
+          processed_image, num_classes=FLAGS.num_classes, is_training=False)
 
     predictions = end_points['multi_predictions'] = tf.nn.sigmoid(
         logits, name='multi_predictions')
@@ -133,18 +131,25 @@ def main(args):
     sess = tf.Session()
     saver.restore(sess, FLAGS.checkpoint)
 
-    # Run the evaluation on the image
-    predictions_eval = np.squeeze(sess.run(predictions))
+    # Run the evaluation on the images
+    for image_path in FLAGS.image_path:
+      if not os.path.exists(image_path):
+        tf.logging.fatal('Input image does not exist %s', FLAGS.image_path[0])
+      img_data = tf.gfile.FastGFile(image_path).read()
+      print(image_path)
+      predictions_eval = np.squeeze(sess.run(predictions,
+                                             {input_image: img_data}))
 
-  # Print top(n) results
-  labelmap, label_dict = LoadLabelMaps(FLAGS.num_classes, FLAGS.labelmap, FLAGS.dict)
+      # Print top(n) results
+      labelmap, label_dict = LoadLabelMaps(FLAGS.num_classes, FLAGS.labelmap, FLAGS.dict)
 
-  top_k = predictions_eval.argsort()[-FLAGS.n:][::-1]
-  for idx in top_k:
-    mid = labelmap[idx]
-    display_name = label_dict.get(mid, 'unknown')
-    score = predictions_eval[idx]
-    print('{}: {} - {} (score = {:.2f})'.format(idx, mid, display_name, score))
+      top_k = predictions_eval.argsort()[-FLAGS.n:][::-1]
+      for idx in top_k:
+        mid = labelmap[idx]
+        display_name = label_dict.get(mid, 'unknown')
+        score = predictions_eval[idx]
+        print('{}: {} - {} (score = {:.2f})'.format(idx, mid, display_name, score))
+      print()
 
 
 if __name__ == '__main__':
@@ -161,6 +166,6 @@ if __name__ == '__main__':
                       help='Number of output classes.')
   parser.add_argument('--n', type=int, default=10,
                       help='Number of top predictions to print.')
-  parser.add_argument('image_path', nargs=1, default='')
+  parser.add_argument('image_path', nargs='+', default='')
   FLAGS = parser.parse_args()
   tf.app.run()
