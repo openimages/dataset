@@ -48,9 +48,6 @@ import tensorflow as tf
 
 from tensorflow.contrib.slim.python.slim.nets import inception
 from tensorflow.python.framework import ops
-from tensorflow.python.ops import control_flow_ops
-from tensorflow.python.ops import data_flow_ops
-from tensorflow.python.ops import variables
 from tensorflow.python.training import saver as tf_saver
 from tensorflow.python.training import supervisor
 
@@ -79,8 +76,8 @@ def PreprocessImage(image, central_fraction=0.875):
                                  align_corners=False)
 
   # Center the image about 128.0 (which is done during training) and normalize.
-  image = tf.mul(image, 1.0/127.5)
-  return tf.sub(image, 1.0)
+  image = tf.multiply(image, 1.0/127.5)
+  return tf.subtract(image, 1.0)
 
 
 def LoadLabelMaps(num_classes, labelmap_path, dict_path):
@@ -124,9 +121,6 @@ def main(args):
 
     predictions = end_points['multi_predictions'] = tf.nn.sigmoid(
         logits, name='multi_predictions')
-    init_op = control_flow_ops.group(variables.initialize_all_variables(),
-                                     variables.initialize_local_variables(),
-                                     data_flow_ops.initialize_all_tables())
     saver = tf_saver.Saver()
     sess = tf.Session()
     saver.restore(sess, FLAGS.checkpoint)
