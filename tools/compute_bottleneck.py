@@ -38,9 +38,6 @@ import tensorflow as tf
 
 from tensorflow.contrib.slim.python.slim.nets import inception
 from tensorflow.python.framework import ops
-from tensorflow.python.ops import control_flow_ops
-from tensorflow.python.ops import data_flow_ops
-from tensorflow.python.ops import variables
 from tensorflow.python.training import saver as tf_saver
 from tensorflow.python.training import supervisor
 
@@ -72,8 +69,8 @@ def PreprocessImage(image_path, central_fraction=0.875):
                                  align_corners=False)
 
   # Center the image about 128.0 (which is done during training) and normalize.
-  img = tf.mul(img, 1.0/127.5)
-  return tf.sub(img, 1.0)
+  img = tf.multiply(img, 1.0/127.5)
+  return tf.subtract(img, 1.0)
 
 
 def main(args):
@@ -90,9 +87,9 @@ def main(args):
           input_image, num_classes=FLAGS.num_classes, is_training=False)
 
     bottleneck = end_points['PreLogits']
-    init_op = control_flow_ops.group(variables.initialize_all_variables(),
-                                     variables.initialize_local_variables(),
-                                     data_flow_ops.initialize_all_tables())
+    init_op = tf.group(tf.global_variables_initializer(),
+                       tf.local_variables_initializer(),
+                       tf.tables_initializer())
     saver = tf_saver.Saver()
     sess = tf.Session()
     saver.restore(sess, FLAGS.checkpoint)
