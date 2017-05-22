@@ -129,7 +129,7 @@ def main(args):
     for image_path in FLAGS.image_path:
       if not os.path.exists(image_path):
         tf.logging.fatal('Input image does not exist %s', FLAGS.image_path[0])
-      img_data = tf.gfile.FastGFile(image_path).read()
+      img_data = tf.gfile.FastGFile(image_path, "rb").read()
       print(image_path)
       predictions_eval = np.squeeze(sess.run(predictions,
                                              {input_image: img_data}))
