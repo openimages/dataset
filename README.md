@@ -2,15 +2,23 @@
 
 Open Images is a dataset of ~9 million URLs to images that have been annotated with labels spanning over 6000 categories.
 
-The annotations are licensed by Google Inc. under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license.
+The annotations are licensed by Google Inc. under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license. The contents of this repository are released under an [Apache 2](LICENSE) license.
 
 The images are listed as having a [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) license. **Note:** while we tried to identify images that are licensed under a Creative Commons Attribution license, we make no representations or warranties regarding the license status of each image and you should verify the license for each image yourself.
 
+## Goodies
+- **New** [Pretrained Inception v3 model](https://github.com/openimages/dataset/wiki/Running-a-pretrained-classifier) is released.
+- **New** [OpenImages annotations on BigQuery](https://cloud.google.com/bigquery/public-data/openimages)
+
+- [Unofficial dataset viewer](http://openimages.oldjpg.com/) by [tzatter](https://github.com/tzatter).
+
 ## Download the data
 
-* [Image URLs and metadata](https://storage.googleapis.com/openimages/2016_08/images_2016_08_v2.tar.gz) (654 MB) – **Updated** to [make image ids hexadimal](https://github.com/openimages/dataset/issues/1)
-* [Machine image-level annotations (train and validation sets)](https://storage.googleapis.com/openimages/2016_08/machine_ann_2016_08.tar.gz) (330 MB)
-* [Human image-level annotations (validation set)](https://storage.googleapis.com/openimages/2016_08/human_ann_2016_08.tar.gz) (7 MB)
+* [Image URLs and metadata](https://storage.googleapis.com/openimages/2016_08/images_2016_08_v5.tar.gz) (990 MB) -- **updated**: added OriginalSize and OriginalMD5 and Thumbnail300KURL columns.
+* [Machine image-level annotations (train and validation sets)](https://storage.googleapis.com/openimages/2016_08/machine_ann_2016_08_v3.tar.gz) (450 MB)
+* [Human image-level annotations (validation set)](https://storage.googleapis.com/openimages/2016_08/human_ann_2016_08_v3.tar.gz) (9 MB)
+
+See also how to [import the annotations into PostgreSQL](https://github.com/openimages/dataset/wiki/Importing-into-PostgreSQL).
 
 ## Data organization
 
@@ -27,26 +35,43 @@ The data tarballs contain CSV files of two types:
 There's one such file for each subset inside train and validation subdirectories. It has image URLs, their OpenImages IDs, titles, authors and license information:
 
 ```
-ImageID,OriginalURL,OriginalLandingURL,License,AuthorProfileURL,Author,Title
+ImageID,Subset,OriginalURL,OriginalLandingURL,License,AuthorProfileURL,Author,Title,\
+OriginalSize,OriginalMD5,Thumbnail300KURL
 ...
 
-000060e3121c7305,"https://c1.staticflickr.com/5/4129/5215831864_46f356962f_o.jpg",\
-"https://www.flickr.com/photos/brokentaco/5215831864",\
-"https://creativecommons.org/licenses/by/2.0/",\
-"https://www.flickr.com/people/brokentaco/","David","28 Nov 2010 Our new house."
+000060e3121c7305,train,https://c1.staticflickr.com/5/4129/5215831864_46f356962f_o.jpg,\
+https://www.flickr.com/photos/brokentaco/5215831864,\
+https://creativecommons.org/licenses/by/2.0/,\
+"https://www.flickr.com/people/brokentaco/","David","28 Nov 2010 Our new house."\
+211079,0Sad+xMj2ttXM1U8meEJ0A==,https://c1.staticflickr.com/5/4129/5215831864_ee4e8c6535_z.jpg
 ```
 
 The data is as it appears on the destination websites.
+
+* OriginalSize is the download size of the original image.
+* OriginalMD5 is base64-encoded binary MD5, as described [here](https://cloud.google.com/storage/transfer/create-url-list#md5).
+* Thumbnail300KURL is an optional URL to a thumbnail with ~300K pixels (~640x480). It's provided for the convenience of downloading the data in the absence of more convenient ways to get the images. If missing, the OriginalURL must be used (and then resized to the same size, if needed). **Beware:** these thumbnails are generated on the fly and their contents and even resolution might be different every day.
 
 ### labels.csv
 
 The CSVs of this type attach labels to image IDs:
 
 ```
-ImageID,Confidence:Labels...
+ImageID,Source,LabelName,Confidence
 ...
-000060e3121c7305,0.9:/m/05wrt,0.9:/m/06ht1,0.7:/m/01l0mw,0.7:/m/03d2wd,0.7:/m/03nxtz,0.6:/m/020g49,\
-0.6:/m/023907r,0.6:/m/02rfdq,0.6:/m/038t8_,0.6:/m/03f6tq,0.6:/m/0l7_8,0.5:/m/01nblt,0.5:/m/01s105
+000060e3121c7305,machine,/m/06ht1,0.9
+000060e3121c7305,machine,/m/05wrt,0.9
+000060e3121c7305,machine,/m/01l0mw,0.8
+000060e3121c7305,machine,/m/03d2wd,0.7
+000060e3121c7305,machine,/m/03nxtz,0.7
+000060e3121c7305,machine,/m/023907r,0.7
+000060e3121c7305,machine,/m/020g49,0.7
+000060e3121c7305,machine,/m/0l7_8,0.6
+000060e3121c7305,machine,/m/02rfdq,0.6
+000060e3121c7305,machine,/m/038t8_,0.6
+000060e3121c7305,machine,/m/03f6tq,0.6
+000060e3121c7305,machine,/m/01s105,0.6
+000060e3121c7305,machine,/m/01nblt,0.5
 ...
 ```
 
@@ -82,3 +107,20 @@ While the machine annotations are somewhat noisy, in general, the labels with mo
 
 We have trained an Inception v3 model based on Open Images annotations alone, and the model is good enough to be used for fine-tuning applications as well as for other things, like [DeepDream](https://research.googleblog.com/2015/07/deepdream-code-example-for-visualizing.html) or [artistic style transfer](https://arxiv.org/abs/1508.06576) which require a well developed hierarchy of filters. We hope to improve the quality of the annotations in Open Image the coming months, and therefore the quality of models which can be trained.
 
+## Citations
+
+If you use the OpenImages dataset in your work, please cite it as:
+
+APA-style citation: "Krasin I., Duerig T., Alldrin N., Veit A., Abu-El-Haija S., Belongie S., Cai D., Feng Z., Ferrari V., Gomes V., Gupta A., Narayanan D., Sun C., Chechik G, Murphy K. OpenImages: A public dataset for large-scale multi-label and multi-class image classification, 2016. Available from https://github.com/openimages".
+
+BibTeX
+```
+@article{openimages,
+  title={OpenImages: A public dataset for large-scale multi-label and multi-class image classification.},
+  author={Krasin, Ivan and Duerig, Tom and Alldrin, Neil and Veit, Andreas and Abu-El-Haija, Sami
+    and Belongie, Serge and Cai, David and Feng, Zheyun and Ferrari, Vittorio and Gomes, Victor
+    and Gupta, Abhinav and Narayanan, Dhyanesh and Sun, Chen and Chechik, Gal and Murphy, Kevin},
+  journal={Dataset available from https://github.com/openimages},
+  year={2016}
+}
+```
