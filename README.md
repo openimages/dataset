@@ -10,8 +10,6 @@ The images are listed as having a [CC BY 2.0](https://creativecommons.org/licens
 - **New** [Pretrained Inception v3 model](https://github.com/openimages/dataset/wiki/Running-a-pretrained-classifier) is released.
 - **New** [OpenImages annotations on BigQuery](https://cloud.google.com/bigquery/public-data/openimages)
 
-- [Unofficial dataset viewer](http://openimages.oldjpg.com/) by [tzatter](https://github.com/tzatter).
-
 ## Download the data
 
 * [Image URLs and metadata](https://storage.googleapis.com/openimages/2016_08/images_2016_08_v5.tar.gz) (990 MB) -- **updated**: added OriginalSize and OriginalMD5 and Thumbnail300KURL columns.
