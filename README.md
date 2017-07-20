@@ -23,35 +23,14 @@ See also how to [import the annotations into PostgreSQL](https://github.com/open
 
 ## Data organization
 
-Each image has a unique 64-bit ID assigned. In the CSV files they appear as zero-padded hex integers, such as 000060e3121c7305. The [dataset](#download-the-data) is split into a training set (9011219 images), a validation set (41620 images), and a test set (125436 images)[^test-split-footnote]. Each image has zero or more labels and/or bounding boxes assigned.
-
-[^test-split-footnote]: The V1 validation set was partitioned into validation and test in the V2 release. This is intended to make evaluations more tractable.
+Each image has a unique 64-bit ID assigned. In the CSV files they appear as zero-padded hex integers, such as 000060e3121c7305. The [dataset](#download-the-data) is split into a training set (9011219 images), a validation set (41620 images), and a test set (125436 images)<sup>[1](#footnote1)</sup>. Each image has zero or more labels and/or bounding boxes assigned.
 
 All images have machine-populated image-level annotations while human annotations are provided on a subset of the images (including the validation and test sets). The human annotations come from these sources:
 
-* Human verification of machine annotations, which allows to practically eliminate false positives (but not false negatives)[^human-verification-details-footnote].
+* Human verification of machine annotations, which allows to practically eliminate false positives (but not false negatives)<sup>[2](#footnote2)</sup>.
 * Crowd-sourced verification from Image Labeler: [Crowdsource app](http://play.google.com/store/apps/details?id=com.google.android.apps.village.boond), [g.co/imagelabeler](http://g.co/imagelabeler).
-* Bounding boxes in the validation and test sets drawn by human operators[^testval-bbox-details-footnote].
-* Bounding boxes in the train set produced semi-automatically using an enhanced version of the method described in ["We don't need no bounding-boxes: Training object class detectors using only human verification", Papadopolous et al., CVPR 2016](https://arxiv.org/abs/1602.08405). These are all human verified[^train-bbox-details-footnote].
-
-[^human-verification-details-footnote]: Addtional details on the human verification of image-level ground-truth:
-
- * The groundtruth consists of verifications of machine generated labels.
- * A variety of models were used to generate the samples (not just the one used to generate the machine-generated labels above) which is why the vocabulary is significantly expanded.
-
-[^testval-bbox-details-footnote]: Additional details on the validation and test set bounding box groundtruth:
-
- * All machine generated image-level labels which were positively verified by a human were selected to have boxes drawn.
- * Paid human operators then went through a sequence of tasks that involved drawing each instance of the label in the image, assigning attributes (like IsInside), and verifying the drawn boxes.
- * All boxes in the validation and test sets are human verified.
-
-[^train-bbox-details-footnote]: Additional details on the training set bounding box groundtruth:
-
- * Boxes in the training set were collected using an enhanced version of the method described in ["We don't need no bounding-boxes: Training object class detectors using only human verification", Papadopolous et al., CVPR 2016](https://arxiv.org/abs/1602.08405).
- * All object instances are annotated with a box in the validation and test sets. This includes all object classes in the machine generated image-level labels, which have been positively verified by a human. Note that false negatives of the image-level model mean there could be some labels missing.
- * At most one box per class per image is provided in the training set.
- * Boxes in the training set are guaranteed IoU > 0.7 with the perfect box, and in practice they are very accurate: mean IoU is ~0.8-0.85.
- * We deliberately did not annotate human body parts for 80% of the training set due to the overwhelming number of instances.
+* Bounding boxes in the validation and test sets drawn by human operators<sup>[3](#footnote3)</sup>.
+* Bounding boxes in the train set produced semi-automatically using an enhanced version of the method described in ["We don't need no bounding-boxes: Training object class detectors using only human verification", Papadopolous et al., CVPR 2016](https://arxiv.org/abs/1602.08405). These are all human verified<sup>[4](#footnote4)</sup>.
 
 Labels are identified by MIDs (Machine-generated Ids) as can be found in [Freebase](https://en.wikipedia.org/wiki/Freebase) or [Google Knowledge Graph API](https://developers.google.com/knowledge-graph/). A short description of each class is available in [class-descriptions.csv](https://storage.googleapis.com/openimages/2017_07/class-descriptions.csv). There are 19868 distinct [image-level classes](https://storage.googleapis.com/openimages/2017_07/classes.txt) and 600 distinct classes with a [bounding box](https://storage.googleapis.com/openimages/2017_07/classes-bbox.txt) attached to at least one images. Of these, 5000 image-level labels are considered [trainable](https://storage.googleapis.com/openimages/2017_07/classes-trainable.txt) with at least 30 human-verified images in the training set and 5 images in the validation or test sets. Only 545 labels with bounding boxes are considered [trainable](https://storage.googleapis.com/openimages/2017_07/classes-bbox-trainable.txt).
 
@@ -231,9 +210,9 @@ The list of 545 trainable box-level classes.
 
 - Browse the bounding box groundtruth [here](http://www.cvdfoundation.org/datasets/open-images-dataset/vis), courtesy of [CVDF](http://www.cvdfoundation.org).
 
-- View the set of boxable labels [here](bbox_labels_vis.html):
+- View the set of boxable labels [here](https://storage.googleapis.com/openimages/2017_07/bbox_labels_vis/bbox_labels_vis.html):
 
-[![Hierarchy Visualizer](assets/v2-bbox_labels_vis_screenshot.png)](bbox_labels_vis.html)
+[![Hierarchy Visualizer](assets/v2-bbox_labels_vis_screenshot.png)](https://storage.googleapis.com/openimages/2017_07/bbox_labels_vis/bbox_labels_vis.html)
 
 ### Label distribution
 The following figures show the distribution of annotations across the dataset[^red-vs-green-footnote]. Notice that the class distribution is heavily skewed (note: the y-axis is on a log-scale). Labels are ordered by number of positive examples, then by number of negative examples.
@@ -262,3 +241,25 @@ BibTeX
 }
 ```
 
+---
+
+<a name="footnote1">1</a>. The V1 validation set was partitioned into validation and test in the V2 release. This is intended to make evaluations more tractable.
+
+<a name="footnote2">2</a>. Addtional details on the human verification of image-level ground-truth:
+
+ * The groundtruth consists of verifications of machine generated labels.
+ * A variety of models were used to generate the samples (not just the one used to generate the machine-generated labels above) which is why the vocabulary is significantly expanded.
+
+<a name="footnote3">3</a>. Additional details on the validation and test set bounding box groundtruth:
+
+ * All machine generated image-level labels which were positively verified by a human were selected to have boxes drawn.
+ * Paid human operators then went through a sequence of tasks that involved drawing each instance of the label in the image, assigning attributes (like IsInside), and verifying the drawn boxes.
+ * All boxes in the validation and test sets are human verified.
+
+<a name="footnote4">4</a>. Additional details on the training set bounding box groundtruth:
+
+ * Boxes in the training set were collected using an enhanced version of the method described in ["We don't need no bounding-boxes: Training object class detectors using only human verification", Papadopolous et al., CVPR 2016](https://arxiv.org/abs/1602.08405).
+ * All object instances are annotated with a box in the validation and test sets. This includes all object classes in the machine generated image-level labels, which have been positively verified by a human. Note that false negatives of the image-level model mean there could be some labels missing.
+ * At most one box per class per image is provided in the training set.
+ * Boxes in the training set are guaranteed IoU > 0.7 with the perfect box, and in practice they are very accurate: mean IoU is ~0.8-0.85.
+ * We deliberately did not annotate human body parts for 80% of the training set due to the overwhelming number of instances.
