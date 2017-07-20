@@ -215,9 +215,7 @@ The list of 545 trainable box-level classes.
 [![Hierarchy Visualizer](assets/v2-bbox_labels_vis_screenshot.png)](https://storage.googleapis.com/openimages/2017_07/bbox_labels_vis/bbox_labels_vis.html)
 
 ### Label distribution
-The following figures show the distribution of annotations across the dataset[^red-vs-green-footnote]. Notice that the class distribution is heavily skewed (note: the y-axis is on a log-scale). Labels are ordered by number of positive examples, then by number of negative examples.
-
-[^red-vs-green-footnote]: Green indicates positive examples while red indicates negatives.
+The following figures show the distribution of annotations across the dataset<sup>[5](#footnote5)</sup>. Notice that the class distribution is heavily skewed (note: the y-axis is on a log-scale). Labels are ordered by number of positive examples, then by number of negative examples.
 
 ![Label frequencies - Training set](assets/v2-human-label-frequencies-train.png)
 ![Label frequencies - Val+Test sets](assets/v2-human-label-frequencies-val-test.png)
@@ -263,3 +261,6 @@ BibTeX
  * At most one box per class per image is provided in the training set.
  * Boxes in the training set are guaranteed IoU > 0.7 with the perfect box, and in practice they are very accurate: mean IoU is ~0.8-0.85.
  * We deliberately did not annotate human body parts for 80% of the training set due to the overwhelming number of instances.
+
+<a name="footnote5">5</a>. Green indicates positive examples while red indicates negatives.
+
