@@ -243,21 +243,20 @@ BibTeX
 
 <a name="footnote1">1</a>. The V1 validation set was partitioned into validation and test in the V2 release. This is intended to make evaluations more tractable.
 
-<a name="footnote2">2</a>. Addtional details on the human verification of image-level ground-truth:
+<a name="footnote2">2</a>. Additional details on the human verification of image-level ground-truth:
 
  * The groundtruth consists of verifications of machine generated labels.
  * A variety of models were used to generate the samples (not just the one used to generate the machine-generated labels above) which is why the vocabulary is significantly expanded.
 
 <a name="footnote3">3</a>. Additional details on the validation and test set bounding box groundtruth:
 
- * All machine generated image-level labels which were positively verified by a human were selected to have boxes drawn.
- * Paid human operators then went through a sequence of tasks that involved drawing each instance of the label in the image, assigning attributes (like IsInside), and verifying the drawn boxes.
+ * All object instances are annotated with a box in the validation and test sets. This includes all object classes in the machine generated image-level labels, which have been positively verified by a human. Note that false negatives of the image-level model mean there could be some labels missing.
+ * Paid human operators went through a sequence of tasks that involved drawing each instance of the label in the image, assigning attributes (like IsInside), and verifying the drawn boxes.
  * All boxes in the validation and test sets are human verified.
 
 <a name="footnote4">4</a>. Additional details on the training set bounding box groundtruth:
 
  * Boxes in the training set were collected using an enhanced version of the method described in ["We don't need no bounding-boxes: Training object class detectors using only human verification", Papadopolous et al., CVPR 2016](https://arxiv.org/abs/1602.08405).
- * All object instances are annotated with a box in the validation and test sets. This includes all object classes in the machine generated image-level labels, which have been positively verified by a human. Note that false negatives of the image-level model mean there could be some labels missing.
  * At most one box per class per image is provided in the training set.
  * Boxes in the training set are guaranteed IoU > 0.7 with the perfect box, and in practice they are very accurate: mean IoU is ~0.8-0.85.
  * We deliberately did not annotate human body parts for 80% of the training set due to the overwhelming number of instances.
