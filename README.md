@@ -36,10 +36,10 @@ Table 1 shows an overview of the image-level labels in all splits of the dataset
 <p align='center'>Table 1: Image-level labels.</p>
 
 | | Train | Validation | Test | # Classes | # Trainable Classes |
-|:---|:---|:---|:---|:---|:---|
-|Images|9011219|41620|125436|-|-|
-|Machine Generated Labels|78977695|512093|1545835|7870|4966|
-|Human Verified Labels|9376588<br/>4303594 pos<br/>5072994 neg|559873<br/>374778 pos<br/>185095 neg|1693466<br/>1132567 pos<br/>560899 neg|19661|5000|
+|---:|---:|---:|---:|---:|---:|
+|Images|9,011,219|41,620|125,436|-|-|
+|Machine Generated Labels|78,977,695|512,093|1,545,835|7,870|4,966|
+|Human Verified Labels|9,376,588<br/>pos: 4,303,594<br/>neg: 5,072,994|559,873<br/>pos: 374,778<br/>neg: 185,095|1,693,466<br/>pos: 1,132,567<br/>neg: &nbsp;&nbsp;&nbsp;560,899|19,661|5,000|
 
 Moreover, all images in the validation and test sets as well as part of the training set have human-verified image-level labels. Most of the human verifications have been done with in-house annotators at Google. A smaller part has been done with crowd-sourced verification from Image Labeler: [Crowdsource app](http://play.google.com/store/apps/details?id=com.google.android.apps.village.boond), [g.co/imagelabeler](http://g.co/imagelabeler). This human verification process allows to practically eliminate false positives (but not false negatives, so some labels might be missing from an image). A variety of computer vision models were used to generate the samples (not just the one used for the machine-generated labels above) which is why the vocabulary is significantly expanded (#classes column in Table 1).
 
@@ -54,9 +54,9 @@ Table 2 shows an overview of the bounding box annotations in all splits of the d
 <p align='center'>Table 2: Boxes.</p>
 
 | | Train | Validation | Test | # Classes | # Trainable Classes |
-|:---|:---|:---|:---|:---|:---|
-|Images|669124|41620|125436|-|-|
-|Boxes|1240316|204621|625282|600|545|
+|---:|---:|---:|---:|---:|---:|
+|Images|669,124|41,620|125,436|-|-|
+|Boxes|1,240,316|204,621|625,282|600|545|
 
 We provide complete bounding box annotation for all object instances on the validation and test sets, all manually drawn by human annotators at Google. This was done for all image-level labels that have been positively verified by a human (see Table 1). Moreover, annotators also marked a set of attributes for each box, e.g. indicating whether that object is occluded. On average, there are about 5 boxes per image in the validation and test sets.
 
