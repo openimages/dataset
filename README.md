@@ -23,6 +23,8 @@ The images are listed as having a [CC BY 2.0](https://creativecommons.org/licens
 * [Machine-generated image-level annotations (train, validation, and test sets)](https://storage.googleapis.com/openimages/2017_07/annotations_machine_2017_07.tar.gz) (447 MB)
 * [Classes and class descriptions](https://storage.googleapis.com/openimages/2017_07/classes_2017_07.tar.gz) (293 KB)
 
+To retrieve the images you can use [Open Images dataset downloader](https://github.com/dnuffer/open_images_downloader), courtesy of Dan Nuffer. It is a program built for downloading, verifying and resizing the images and metadata. It is designed to run as fast as possible by taking advantage of the available hardware and bandwidth by using asynchronous I/O and parallelism.
+
 See also how to [import the annotations into PostgreSQL](https://github.com/openimages/dataset/wiki/Importing-into-PostgreSQL).
 
 ## Data organization
