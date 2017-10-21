@@ -14,8 +14,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ==============================================================================
-"""This script takes a resnet_v1_101 checkpoint, runs the classifier on the
-image and prints top(n) predictions in human-readable form.
+r"""Classifier inference utility.
+
+This code takes a resnet_v1_101 checkpoint, runs the classifier on the image and
+prints predictions in human-readable form.
 
 -------------------------------
 Example command:
@@ -62,19 +64,18 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-import sys
-from google.protobuf import text_format
-
 import tensorflow as tf
 
 flags = tf.app.flags
 FLAGS = flags.FLAGS
 
-flags.DEFINE_string('labelmap', '/cns/is-d/home/image-understanding/nalldrin/datasets/open-image-dataset/v2/2017_07/classes-trainable.txt', 'Labels, one per line.')
+flags.DEFINE_string('labelmap', 'classes-trainable.txt',
+                    'Labels, one per line.')
 
-flags.DEFINE_string('dict', '/cns/is-d/home/image-understanding/nalldrin/datasets/open-image-dataset/v2/2017_07/class-descriptions.csv', 'Descriptive string for each label.')
+flags.DEFINE_string('dict', 'class-descriptions.csv',
+                    'Descriptive string for each label.')
 
-flags.DEFINE_string('checkpoint_path', '/usr/local/google/home/nalldrin/temp/oid_graph/local/adapt-model.ckpt-61995903',
+flags.DEFINE_string('checkpoint_path', 'oidv2-resnet_v1_101.ckpt',
                     'Path to checkpoint file.')
 
 flags.DEFINE_string('image', '',
@@ -88,18 +89,19 @@ flags.DEFINE_float('score_threshold', None, 'Score threshold.')
 
 def LoadLabelMap(labelmap_path, dict_path):
   """Load index->mid and mid->display name maps.
+
   Args:
-    labelmap_path: path to the file with the list of mids, describing predictions.
+    labelmap_path: path to the file with the list of mids, describing
+        predictions.
     dict_path: path to the dict.csv that translates from mids to display names.
   Returns:
     labelmap: an index to mid list
     label_dict: mid to display name dictionary
   """
-  labelmap = [line.rstrip()
-              for line in tf.gfile.GFile(labelmap_path).readlines()]
+  labelmap = [line.rstrip() for line in tf.gfile.GFile(labelmap_path)]
 
   label_dict = {}
-  for line in tf.gfile.GFile(dict_path).readlines():
+  for line in tf.gfile.GFile(dict_path):
     words = [word.strip(' "\n') for word in line.split(',', 1)]
     label_dict[words[0]] = words[1]
 
@@ -109,7 +111,6 @@ def LoadLabelMap(labelmap_path, dict_path):
 def main(_):
   # Load labelmap and dictionary from disk.
   labelmap, label_dict = LoadLabelMap(FLAGS.labelmap, FLAGS.dict)
-  num_classes = len(labelmap)
 
   g = tf.Graph()
   with g.as_default():
@@ -122,20 +123,23 @@ def main(_):
 
       for image_filename in FLAGS.image.split(','):
         compressed_image = tf.gfile.FastGFile(image_filename, 'rb').read()
-        predictions_eval = sess.run(predictions,
-                           feed_dict={input_values: [compressed_image]})
-        top_k = predictions_eval.argsort()[::-1]  # indices of predictions_eval sorted by score
+        predictions_eval = sess.run(
+            predictions, feed_dict={
+                input_values: [compressed_image]
+            })
+        top_k = predictions_eval.argsort()[::-1]  # indices sorted by score
         if FLAGS.top_k > 0:
           top_k = top_k[:FLAGS.top_k]
         if FLAGS.score_threshold is not None:
-          top_k = [i for i in top_k if predictions_eval[i] >= FLAGS.score_threshold]
+          top_k = [i for i in top_k
+                   if predictions_eval[i] >= FLAGS.score_threshold]
         print('Image: "%s"\n' % image_filename)
         for idx in top_k:
           mid = labelmap[idx]
           display_name = label_dict[mid]
           score = predictions_eval[idx]
-          print('{:04d}: {} - {} (score = {:.2f})'.format(idx, mid, display_name,
-                                                      score))
+          print('{:04d}: {} - {} (score = {:.2f})'.format(
+              idx, mid, display_name, score))
 
 
 if __name__ == '__main__':
