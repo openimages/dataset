@@ -12,7 +12,7 @@ The images are listed as having a [CC BY 2.0](https://creativecommons.org/licens
 
 ## Announcements
 
-* **09-20-2017** Resnet 101 image classification model released (trained on V2 data). [Model checkpoint](https://storage.googleapis.com/openimages/2017_07/oidv2-resnet_v1_101.ckpt.tar.gz), [Checkpoint readme](https://storage.googleapis.com/openimages/2017_07/oidv2-resnet_v1_101.readme.txt), [Inference code](tools/classify_oidv2.py).
+* **10-20-2017** Resnet 101 image classification model released (trained on V2 data). [Model checkpoint](https://storage.googleapis.com/openimages/2017_07/oidv2-resnet_v1_101.ckpt.tar.gz), [Checkpoint readme](https://storage.googleapis.com/openimages/2017_07/oidv2-resnet_v1_101.readme.txt), [Inference code](tools/classify_oidv2.py).
 * **07-20-2017** V2 data is released! The dataset now includes 2M bounding boxes spanning 600 object classes (1.24M in train, 830K in validation+test), and 4.3M human-verified positive image-level labels on the training set. [Changelist](CHANGELIST-V1-TO-V2.md). Coming soon: Trained models (both image-level and object detectors).
 * **07-20-2017** [V2 data visualizer](http://www.cvdfoundation.org/datasets/open-images-dataset/vis), courtesy of Common Visual Data Foundation ([CVDF](http://www.cvdfoundation.org)).
 
