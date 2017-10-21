@@ -56,36 +56,6 @@ Image: "cat.jpg"
 4799: /m/0k0pj - Nose (score = 0.70)
 1495: /m/02cqfm - Close-up (score = 0.55)
 0036: /m/012c9l - Domestic short-haired cat (score = 0.40)
-
--------------------------------
-Details on model training:
--------------------------------
-The model was trained using the tf-slim image classification model library
-available at https://github.com/tensorflow/models/tree/master/research/slim. Vgg
-input preprocessing was used with image resolution 299x299. The classification
-layer is defined as
-  logits, end_points = resnet_v1.resnet_v1_101(images, num_classes=5000)
-  logits = tf.squeeze(logits, name='SpatialSqueeze')
-  end_points['multi_predictions'] = tf.nn.sigmoid(
-      logits, name='multi_predictions')
-
-The model was trained on the open-images v2 dataset asynchronously with 50 GPU
-workers and batch size 32 for 61995903 steps. RMSProp optimizer was used with
-the following settings:
-  learning_rate = tf.train.exponential_decay(
-      0.045,   # learning_rate
-      slim.get_or_create_global_step(),
-      552345,  # decay_steps
-      0.94,    # learning_rate_decay_factor
-      staircase=True
-  )
-
-  opt = tf.train.RMSPropOptimizer(
-      learning_rate,
-      0.9,  # decay
-      0.9,  # momentum
-      1.0   #rmsprop_epsilon
-  )
 """
 
 from __future__ import absolute_import
