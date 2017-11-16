@@ -46,7 +46,7 @@ Table 1 shows an overview of the image-level labels in all splits of the dataset
 
 Moreover, all images in the validation and test sets as well as part of the training set have human-verified image-level labels. Most of the human verifications have been done with in-house annotators at Google. A smaller part has been done with crowd-sourced verification from Image Labeler: [Crowdsource app](http://play.google.com/store/apps/details?id=com.google.android.apps.village.boond), [g.co/imagelabeler](http://g.co/imagelabeler). This human verification process allows to practically eliminate false positives (but not false negatives, so some labels might be missing from an image). A variety of computer vision models were used to generate the samples (not just the one used for the machine-generated labels above) which is why the vocabulary is significantly expanded (#classes column in Table 1).
 
-Overall, there are 19,995 distinct [classes with image-level labels](https://storage.googleapis.com/openimages/2017_11/classes.txt) (19,693 have at least one human-verified sample and 7870 have a sample in the machine-generated pool). Of these, [5000 classes are considered trainable](https://storage.googleapis.com/openimages/2017_11/classes-trainable.txt). The trainable classes are unchanged from V2 (in V2 they were defined to have at least 30 human-verified samples in the training set and 5 in the validation or test sets). Classes are identified by MIDs (Machine-generated Ids) as can be found in [Freebase](https://en.wikipedia.org/wiki/Freebase) or [Google Knowledge Graph API](https://developers.google.com/knowledge-graph/). A short description of each class is available in [class-descriptions.csv](https://storage.googleapis.com/openimages/2017_11/class-descriptions.csv).
+Overall, there are 19,995 distinct [classes with image-level labels](https://storage.googleapis.com/openimages/2017_11/classes.txt) (19,693 have at least one human-verified sample and 7870 have a sample in the machine-generated pool; note that verifications come from both the released machine-generated labels and from internal-only models). Of these, [5000 classes are considered trainable](https://storage.googleapis.com/openimages/2017_11/classes-trainable.txt). The trainable classes are unchanged from V2 (in V2 they were defined to have at least 30 human-verified samples in the training set and 5 in the validation or test sets). Classes are identified by MIDs (Machine-generated Ids) as can be found in [Freebase](https://en.wikipedia.org/wiki/Freebase) or [Google Knowledge Graph API](https://developers.google.com/knowledge-graph/). A short description of each class is available in [class-descriptions.csv](https://storage.googleapis.com/openimages/2017_11/class-descriptions.csv).
 
 Each annotation has a confidence number from 0.0 to 1.0 assigned. Confidences for the human-verified labels are binary (either positive, 1.0 or negative, 0.0). Machine-generated labels have fractional confidences, generally >= 0.5. The higher the confidence, the smaller chance for the label to be a false positive.
 
@@ -134,6 +134,11 @@ ImageID,Source,LabelName,Confidence
 ...
 ```
 
+The Source column indicates how the annotation was created:
+
+- "verification" are verified image-level labels from paid raters
+- "crowdsource-verification" are verified labels from the crowdsource app
+
 ### annotations-human-bbox.csv
 
 Human provided labels with bounding box coordinates (one file each for train,
@@ -178,6 +183,13 @@ The attributes have the following definitions:
 - IsGroupOf: Indicates that the box spans a group of objects (e.g., a bed of flowers or a crowd of people). We asked annotators to use this tag for cases with more than 5 instances which are heavily occluding each other and are physically touching.
 - IsDepiction: Indicates that the object is a depiction (e.g., a cartoon or drawing of the object, not a real physical instance).
 - IsInside: Indicates a picture taken from the inside of the object (e.g., a car interior or inside of a building).
+
+The Source column indicates how the box was created:
+
+- "freeform" and "xclick" are drawn boxes from raters
+- "activemil" are boxes verified to be tight (IoU > 0.7) through an Active MIL process.
+- "verification" are boxes verified to be tight (IoU > 0.7) from an object detection model internal to Google.
+
 
 ### class-descriptions.csv
 
