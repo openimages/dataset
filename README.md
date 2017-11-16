@@ -136,8 +136,8 @@ ImageID,Source,LabelName,Confidence
 
 The Source column indicates how the annotation was created:
 
-- "verification" are verified image-level labels from paid raters
-- "crowdsource-verification" are verified labels from the crowdsource app
+- "verification" are human verified image-level labels.
+- "crowdsource-verification" are human verified labels from the Crowdsource app.
 
 ### annotations-human-bbox.csv
 
@@ -186,9 +186,9 @@ The attributes have the following definitions:
 
 The Source column indicates how the box was created:
 
-- "freeform" and "xclick" are drawn boxes from raters
-- "activemil" are boxes verified to be tight (IoU > 0.7) through an Active MIL process.
-- "verification" are boxes verified to be tight (IoU > 0.7) from an object detection model internal to Google.
+- "freeform" and "xclick" are human drawn boxes.
+- "activemil" are boxes human verified to be tight (IoU > 0.7) through an Active MIL process.
+- "verification" are boxes human verified to be tight (IoU > 0.7) from an object detection model internal to Google.
 
 
 ### class-descriptions.csv
