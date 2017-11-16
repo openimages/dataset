@@ -19,6 +19,7 @@ The images are listed as having a [CC BY 2.0](https://creativecommons.org/licens
 
 ## Download the data
 
+* [Pixel data](https://github.com/cvdfoundation/open-images-dataset) is now available from Common Visual Data Foundation!
 * [Image URLs and metadata](https://storage.googleapis.com/openimages/2017_11/images_2017_11.tar.gz) (990 MB)
 * [Bounding box annotations (train, validation, and test sets)](https://storage.googleapis.com/openimages/2017_11/annotations_human_bbox_2017_11.tar.gz) (97 MB)
 * [Human-verified image-level annotations (train, validation, and test sets)](https://storage.googleapis.com/openimages/2017_11/annotations_human_2017_11.tar.gz) (137 MB)
