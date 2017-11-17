@@ -67,6 +67,8 @@ For the training set, we considered annotating boxes in 1.5M images, and focusin
 
 Overall, there are [600 distinct classes with a bounding box](https://storage.googleapis.com/openimages/2017_11/classes-bbox.txt) attached to at least one image. Of these, [545 classes are considered trainable](https://storage.googleapis.com/openimages/2017_11/classes-bbox-trainable.txt) (the intersection of the 600 boxable classes with the 5000 image-level trainable classes).
 
+The team at [Algorithmia](https://algorithmia.com/) created an [in-depth object detection tutorial](https://blog.algorithmia.com/deep-dive-into-object-detection-with-open-images-using-tensorflow/) that walks through how to use the provided bounding box annotations to create a useful object detection model with Tensorflow.
+
 ### Data Formats
 
 The data tarballs contain the following files:
@@ -250,6 +252,7 @@ The list of 600 box-level classes.
 ### classes-bbox-trainable.txt
 
 The list of 545 trainable box-level classes.
+
 
 ## Statistics and data analysis
 
