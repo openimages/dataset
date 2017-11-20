@@ -12,6 +12,8 @@ The images are listed as having a [CC BY 2.0](https://creativecommons.org/licens
 
 ## Announcements
 
+* **11-20-2017** Inception resnet v2 object detection model released (trained on V2 data). [Model checkpoint](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md), [evaluation protocol](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/evaluation_protocols.md), and [inference and evaluation tools](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/oid_inference_and_evaluation.md) are available as part of the [Tensorflow Object Detection API](https://github.com/tensorflow/models/tree/master/research/object_detection).
+* **11-16-2017** All images can now be easily [downloaded](https://github.com/cvdfoundation/open-images-dataset) from the Common Visual Data Foundation!
 * **11-16-2017** V3 data released! The dataset now includes 3.7M bounding-boxes and 9.7M positive image-level labels on the training set.
 * **10-20-2017** Resnet 101 image classification model released (trained on V2 data). [Model checkpoint](https://storage.googleapis.com/openimages/2017_07/oidv2-resnet_v1_101.ckpt.tar.gz), [Checkpoint readme](https://storage.googleapis.com/openimages/2017_07/oidv2-resnet_v1_101.readme.txt), [Inference code](tools/classify_oidv2.py).
 * **07-20-2017** V2 data is released! The dataset now includes 2M bounding boxes spanning 600 object classes (1.24M in train, 830K in validation+test), and 4.3M human-verified positive image-level labels on the training set. [Changelist](CHANGELIST-V1-TO-V2.md). Coming soon: Trained models (both image-level and object detectors).
@@ -19,7 +21,7 @@ The images are listed as having a [CC BY 2.0](https://creativecommons.org/licens
 
 ## Download the data
 
-* [Pixel data](https://github.com/cvdfoundation/open-images-dataset) is now available from Common Visual Data Foundation!
+* [Images](https://github.com/cvdfoundation/open-images-dataset): packaged for easy download from the Common Visual Data Foundation
 * [Image URLs and metadata](https://storage.googleapis.com/openimages/2017_11/images_2017_11.tar.gz) (990 MB)
 * [Bounding box annotations (train, validation, and test sets)](https://storage.googleapis.com/openimages/2017_11/annotations_human_bbox_2017_11.tar.gz) (97 MB)
 * [Human-verified image-level annotations (train, validation, and test sets)](https://storage.googleapis.com/openimages/2017_11/annotations_human_2017_11.tar.gz) (137 MB)
@@ -273,6 +275,7 @@ The following figures show the distribution of annotations across the dataset. N
 
 ## Trained models
 
+- Inception resnet v2 object detection model (trained on V2 data). [Model checkpoint](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md), [evaluation protocol](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/evaluation_protocols.md), and [inference and evaluation tools](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/oid_inference_and_evaluation.md) are available as part of the [Tensorflow Object Detection API](https://github.com/tensorflow/models/tree/master/research/object_detection).
 - Resnet 101 image classification model (trained on V2 data): [Model checkpoint](https://storage.googleapis.com/openimages/2017_07/oidv2-resnet_v1_101.ckpt.tar.gz), [Checkpoint readme](https://storage.googleapis.com/openimages/2017_07/oidv2-resnet_v1_101.readme.txt), [Inference code](tools/classify_oidv2.py).
 
 ## Community Contributions
