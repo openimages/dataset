@@ -28,16 +28,17 @@ WORK_PATH="/tmp/oidv2"
 mkdir -p "${WORK_PATH}"
 cd "${WORK_PATH}"
 
-# 1. Download the model and sample image
+# 1. Download the model, inference code, and sample image
 wget https://storage.googleapis.com/openimages/2017_07/classes-trainable.txt
 wget https://storage.googleapis.com/openimages/2017_07/class-descriptions.csv
 wget https://storage.googleapis.com/openimages/2017_07/oidv2-resnet_v1_101.ckpt.tar.gz
+wget https://raw.githubusercontent.com/openimages/dataset/master/tools/classify_oidv2.py
 tar -xzf oidv2-resnet_v1_101.ckpt.tar.gz
 
 wget -O cat.jpg https://farm6.staticflickr.com/5470/9372235876_d7d69f1790_b.jpg
 
 # 2. Run inference
-python classify_v2.py \
+python classify_oidv2.py \
 --checkpoint_path='oidv2-resnet_v1_101.ckpt' \
 --labelmap='classes-trainable.txt' \
 --dict='class-descriptions.csv' \
