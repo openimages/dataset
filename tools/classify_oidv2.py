@@ -59,6 +59,39 @@ Image: "cat.jpg"
 4799: /m/0k0pj - Nose (score = 0.70)
 1495: /m/02cqfm - Close-up (score = 0.55)
 0036: /m/012c9l - Domestic short-haired cat (score = 0.40)
+
+-------------------------------
+Note on image preprocessing:
+-------------------------------
+
+This is the code used to perform preprocessing:
+--------
+from preprocessing import preprocessing_factory
+
+def PreprocessImage(image, network='resnet_v1_101', image_size=299):
+  # If resolution is larger than 224 we need to adjust some internal resizing
+  # parameters for vgg preprocessing.
+  if any(network.startswith(x) for x in ['resnet', 'vgg']):
+    preprocessing_kwargs = {
+        'resize_side_min': int(256 * image_size / 224),
+        'resize_side_max': int(512 * image_size / 224)
+    }
+  else:
+    preprocessing_kwargs = {}
+  preprocessing_fn = preprocessing_factory.get_preprocessing(
+      name=network, is_training=False)
+
+  height = image_size
+  width = image_size
+  image = preprocessing_fn(image, height, width, **preprocessing_kwargs)
+  image.set_shape([height, width, 3])
+  return image
+--------
+
+Note that there appears to be a small difference between the public version
+of slim image processing library and the internal version (which the meta
+graph is based on). Results that are very close, but not exactly identical to
+that of the metagraph.
 """
 
 from __future__ import absolute_import
