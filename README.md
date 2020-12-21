@@ -1,3 +1,3 @@
-# Open Images Dataset V4
+# Open Images Dataset
 
-[The Open Images Dataset has been moved to a new site!](https://storage.googleapis.com/openimages/web/index.html)
+As of V4, [the Open Images Dataset moved to a new site](https://storage.googleapis.com/openimages/web/index.html).
