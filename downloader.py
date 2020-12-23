@@ -38,7 +38,7 @@ import re
 import sys
 
 import boto3
-from botocore import exceptions
+import botocore
 import tqdm
 
 BUCKET_NAME = 'open-images-dataset'
@@ -70,14 +70,17 @@ def download_one_image(bucket, split, image_id, download_folder):
   try:
     bucket.download_file(f'{split}/{image_id}.jpg',
                          os.path.join(download_folder, f'{image_id}.jpg'))
-  except exceptions.ClientError as exception:
+  except botocore.exceptions.ClientError as exception:
     sys.exit(
         f'ERROR when downloading image `{split}/{image_id}`: {str(exception)}')
 
 
 def download_all_images(args):
   """Downloads all images specified in the input file."""
-  bucket = boto3.resource('s3').Bucket(BUCKET_NAME)
+  bucket = boto3.resource(
+      's3', config=botocore.config.Config(
+          signature_version=botocore.UNSIGNED)).Bucket(BUCKET_NAME)
+
   download_folder = args['download_folder'] or os.getcwd()
 
   if not os.path.exists(download_folder):
